@@ -1,6 +1,9 @@
 import "./styles/reset.css";
 import "./styles/index.css";
 
+import { useState } from "react";
+import ItemImage from "./components/ItemImage";
+
 /*
 Here's what a store item should look like
 {
@@ -80,28 +83,74 @@ export default function App() {
   const [storeItems, setStoreItems] = useState(initialStoreItems);
   const [cartItems, setCartItems] = useState(userCart);
 
+  const addItemToCart = (itemToAdd) => {
+    console.log("itemToAdd: ", itemToAdd);
+
+    let updatedCart;
+
+    const foundItem = cartItems.find(
+      (cartItem) => cartItem.item.id === itemToAdd.id
+    );
+    if (foundItem) {
+      updatedCart = cartItems.map((cartItem) => {
+        if (cartItem.item.id === itemToAdd.id) {
+          return { ...cartItem, quantity: cartItem.quantity + 1 };
+        } else {
+          return cartItem;
+        }
+      });
+    } else {
+      updatedCart = [...cartItems, { item: itemToAdd, quantity: 1 }];
+    }
+
+    setCartItems(updatedCart);
+  };
 
   return (
     <>
       <header id="store">
         <h1>Greengrocers</h1>
-        <ul class="item-list store--item-list">
-          {/* Wrtite some code here... */}
+        <ul className="item-list store--item-list">
+          {storeItems.map((storeItem) => (
+            <li key={storeItem.id}>
+              <div className="store--item-icon">
+                <ItemImage item={storeItem} />
+              </div>
+              <button
+                onClick={() => {
+                  console.log("clicked");
+                  addItemToCart(storeItem);
+                }}
+              >
+                Add to cart
+              </button>
+            </li>
+          ))}
         </ul>
       </header>
       <main id="cart">
         <h2>Your Cart</h2>
-        <div class="cart--item-list-container">
-          <ul class="item-list cart--item-list">
-            {/* Wrtite some code here... */}
+        <div className="cart--item-list-container">
+          <ul className="item-list cart--item-list">
+            {cartItems.map((cartItem) => (
+              <li key={cartItem.item.id}>
+                <ItemImage className="cart--item-icon" item={cartItem.item} />
+                <p>{cartItem.item.name}</p>
+                <button className="quantity-btn remove-btn center">-</button>
+                <span className="quantity-text center">
+                  {cartItem.quantity}
+                </span>
+                <button className="quantity-btn add-btn center">+</button>
+              </li>
+            ))}
           </ul>
         </div>
-        <div class="total-section">
+        <div className="total-section">
           <div>
             <h3>Total</h3>
           </div>
           <div>
-            <span class="total-number">£0.00</span>
+            <span className="total-number">£0.00</span>
           </div>
         </div>
       </main>
