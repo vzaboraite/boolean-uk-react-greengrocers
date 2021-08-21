@@ -106,6 +106,25 @@ export default function App() {
     setCartItems(updatedCart);
   };
 
+  const removeFromCart = (targetItem) => {
+    let updatedCart;
+
+    if (targetItem.quantity <= 1) {
+      updatedCart = cartItems.filter((cartItem) => {
+        return cartItem.item.id !== targetItem.item.id;
+      });
+    } else {
+      updatedCart = cartItems.map((cartItem) => {
+        if (cartItem.item.id === targetItem.item.id) {
+          return { ...cartItem, quantity: cartItem.quantity - 1 };
+        } else {
+          return cartItem;
+        }
+      });
+    }
+    setCartItems(updatedCart);
+  };
+
   return (
     <>
       <header id="store">
@@ -136,11 +155,21 @@ export default function App() {
               <li key={cartItem.item.id}>
                 <ItemImage className="cart--item-icon" item={cartItem.item} />
                 <p>{cartItem.item.name}</p>
-                <button className="quantity-btn remove-btn center">-</button>
+                <button
+                  className="quantity-btn remove-btn center"
+                  onClick={() => removeFromCart(cartItem)}
+                >
+                  -
+                </button>
                 <span className="quantity-text center">
                   {cartItem.quantity}
                 </span>
-                <button className="quantity-btn add-btn center">+</button>
+                <button
+                  className="quantity-btn add-btn center"
+                  onClick={() => addItemToCart(cartItem.item)}
+                >
+                  +
+                </button>
               </li>
             ))}
           </ul>
