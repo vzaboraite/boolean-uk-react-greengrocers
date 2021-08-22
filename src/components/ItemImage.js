@@ -1,5 +1,5 @@
 function ItemImage(props) {
-  console.log("Props inside ItemImage: ", props);
+  const { item } = props;
   return (
     /* Problem: can't access icons that are stored in
       public folder.
@@ -8,7 +8,7 @@ function ItemImage(props) {
       because react code is compiled into html and both 
       index.html file and /assets folder are in same public folder.
     */
-    <img src={`/assets/icons/${props.item.id}.svg`} alt={props.item.name} />
+    <img src={`/assets/icons/${item.id}.svg`} alt={item.name} />
   );
 }
 

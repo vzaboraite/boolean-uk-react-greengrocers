@@ -1,13 +1,15 @@
 import StoreItem from "../components/StoreItem";
 
 function StoreItemList(props) {
+  const { storeItems, addItemToCart } = props;
+
   return (
     <ul className="item-list store--item-list">
-      {props.storeItems.map((storeItem) => (
+      {storeItems.map((storeItem) => (
         <StoreItem
           key={storeItem.id}
           storeItem={storeItem}
-          addItemToCart={props.addItemToCart}
+          addItemToCart={addItemToCart}
         />
       ))}
     </ul>

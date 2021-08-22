@@ -2,7 +2,7 @@ import ItemImage from "../../ItemImage";
 import QuantityButton from "./QuantityButton";
 
 function CartItem(props) {
-  const cartItem = props.cartItem;
+  const { cartItem, removeHandler, addHandler } = props;
   return (
     <li>
       <ItemImage className="cart--item-icon" item={cartItem.item} />
@@ -10,13 +10,13 @@ function CartItem(props) {
       <QuantityButton
         className="remove-btn"
         text="-"
-        onClick={() => props.removeHandler(cartItem)}
+        onClick={() => removeHandler(cartItem)}
       />
       <span className="quantity-text center">{cartItem.quantity}</span>
       <QuantityButton
         className="add-btn"
         text="+"
-        onClick={() => props.addHandler(cartItem.item)}
+        onClick={() => addHandler(cartItem.item)}
       />
     </li>
   );

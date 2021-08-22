@@ -1,14 +1,16 @@
 import ItemImage from "../../ItemImage";
 
 function StoreItem(props) {
+  const { storeItem, addItemToCart } = props;
+
   return (
     <li>
       <div className="store--item-icon">
-        <ItemImage item={props.storeItem} />
+        <ItemImage item={storeItem} />
       </div>
       <button
         onClick={() => {
-          props.addItemToCart(props.storeItem);
+          addItemToCart(storeItem);
         }}
       >
         Add to cart
