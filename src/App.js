@@ -2,7 +2,8 @@ import "./styles/reset.css";
 import "./styles/index.css";
 
 import { useState } from "react";
-import ItemImage from "./components/ItemImage";
+import Store from "./components/Store";
+import Cart from "./components/Cart";
 
 /*
 Here's what a store item should look like
@@ -135,62 +136,13 @@ export default function App() {
 
   return (
     <>
-      <header id="store">
-        <h1>Greengrocers</h1>
-        <ul className="item-list store--item-list">
-          {storeItems.map((storeItem) => (
-            <li key={storeItem.id}>
-              <div className="store--item-icon">
-                <ItemImage item={storeItem} />
-              </div>
-              <button
-                onClick={() => {
-                  console.log("clicked");
-                  addItemToCart(storeItem);
-                }}
-              >
-                Add to cart
-              </button>
-            </li>
-          ))}
-        </ul>
-      </header>
-      <main id="cart">
-        <h2>Your Cart</h2>
-        <div className="cart--item-list-container">
-          <ul className="item-list cart--item-list">
-            {cartItems.map((cartItem) => (
-              <li key={cartItem.item.id}>
-                <ItemImage className="cart--item-icon" item={cartItem.item} />
-                <p>{cartItem.item.name}</p>
-                <button
-                  className="quantity-btn remove-btn center"
-                  onClick={() => removeFromCart(cartItem)}
-                >
-                  -
-                </button>
-                <span className="quantity-text center">
-                  {cartItem.quantity}
-                </span>
-                <button
-                  className="quantity-btn add-btn center"
-                  onClick={() => addItemToCart(cartItem.item)}
-                >
-                  +
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="total-section">
-          <div>
-            <h3>Total</h3>
-          </div>
-          <div>
-            <span className="total-number">£{countTotalPrice(cartItems)}</span>
-          </div>
-        </div>
-      </main>
+      <Store storeItems={storeItems} addItemToCart={addItemToCart} />
+      <Cart
+        cartItems={cartItems}
+        totalPrice={countTotalPrice(cartItems)}
+        addHandler={addItemToCart}
+        removeHandler={removeFromCart}
+      />
       <div>
         Icons made by
         <a
