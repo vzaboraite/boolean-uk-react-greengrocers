@@ -125,6 +125,14 @@ export default function App() {
     setCartItems(updatedCart);
   };
 
+  const countTotalPrice = (cartItems) => {
+    let totalPrice = 0;
+    cartItems.forEach((cartItem) => {
+      totalPrice += cartItem.item.price * cartItem.quantity;
+    });
+    return totalPrice.toFixed(2);
+  };
+
   return (
     <>
       <header id="store">
@@ -179,7 +187,7 @@ export default function App() {
             <h3>Total</h3>
           </div>
           <div>
-            <span className="total-number">£0.00</span>
+            <span className="total-number">£{countTotalPrice(cartItems)}</span>
           </div>
         </div>
       </main>
