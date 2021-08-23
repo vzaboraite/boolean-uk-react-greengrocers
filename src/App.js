@@ -79,24 +79,12 @@ const initialStoreItems = [
   },
 ];
 
-const userCart = [
-  {
-    item: {
-      id: "001-beetroot",
-      name: "beetroot",
-      price: 0.35,
-    },
-    quantity: 1,
-  },
-];
-
 export default function App() {
   const [storeItems, setStoreItems] = useState(initialStoreItems);
-  const [cartItems, setCartItems] = useState(userCart);
+  const [cartItems, setCartItems] = useState([]);
 
+  /* Action functions */
   const addItemToCart = (itemToAdd) => {
-    console.log("itemToAdd: ", itemToAdd);
-
     let updatedCart;
 
     const foundItem = cartItems.find(
